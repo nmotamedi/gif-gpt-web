@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@learningfuze/lfz-config": "^1.0.0",
+    "@types/cors": "^2.8.17",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.38.0",
@@ -44,5 +45,10 @@
     "stylelint-config-standard": "^32.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "httpie": "^1.1.2",
+    "node-fetch": "^3.3.2"
   }
 }

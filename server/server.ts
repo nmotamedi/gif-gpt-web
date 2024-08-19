@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
 import express from 'express';
-import pg from 'pg';
 import { ClientError, errorMiddleware } from './lib/index.js';
-
-const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+import { searchGif } from './lib/giphy.js';
 
 const app = express();
 
@@ -17,13 +10,17 @@ const app = express();
 const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
 const uploadsStaticDir = new URL('public', import.meta.url).pathname;
 
-app.use(express.static(reactStaticDir));
 // Static directory for file uploads server/public/
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello, World!' });
+app.get('/api/giphy/search', async (req, res, next) => {
+  try {
+    const resp = await searchGif();
+    res.send(resp);
+  } catch (err) {
+    next(err);
+  }
 });
 
 /*
