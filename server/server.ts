@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
 import express from 'express';
-import { ClientError, errorMiddleware } from './lib/index.js';
+import {
+  ClientError,
+  errorMiddleware,
+  uploadsMiddleware,
+} from './lib/index.js';
 import { searchGif } from './lib/giphy.js';
 
 const app = express();
 
-// Create paths for static directories
-const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
-const uploadsStaticDir = new URL('public', import.meta.url).pathname;
-
 // Static directory for file uploads server/public/
-app.use(express.static(uploadsStaticDir));
+app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/api/giphy/search', async (req, res, next) => {
@@ -23,12 +23,18 @@ app.get('/api/giphy/search', async (req, res, next) => {
   }
 });
 
-/*
- * Handles paths that aren't handled by any other route handler.
- * It responds with `index.html` to support page refreshes with React Router.
- * This must be the _last_ route, just before errorMiddleware.
- */
-app.get('*', (req, res) => res.sendFile(`${reactStaticDir}/index.html`));
+app.post(
+  '/api/openAI/upload',
+  uploadsMiddleware.single('image'),
+  async (req, res, next) => {
+    try {
+      if (!req.file) throw new ClientError(400, 'no file field in request');
+      res.json(req.file.filename);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 app.use(errorMiddleware);
 

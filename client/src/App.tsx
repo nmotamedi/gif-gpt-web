@@ -1,23 +1,14 @@
-import './App.css';
+import './index.css';
+import { FileUploader } from './Components/FileUploader';
+import { onSearch } from './data';
 
 export default function App() {
-  async function onClick(): Promise<void> {
-    try {
-      console.log('Client trying');
-      const resp = await fetch('/api/giphy/search');
-      if (!resp.ok) {
-        throw new Error('Error fetching gifs');
-      }
-      const json = await resp.json();
-      console.log(json);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   return (
-    <>
-      <button onClick={onClick}>Search Gifs</button>
-    </>
+    <div className="w-full">
+      <div className="m-auto w-fit">
+        <FileUploader />
+        <button onClick={onSearch}>Search Gifs</button>
+      </div>
+    </div>
   );
 }
