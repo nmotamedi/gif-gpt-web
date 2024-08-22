@@ -24,13 +24,21 @@ export function FileUploader() {
   return (
     <>
       {file ? (
-        <div className="w-1/2 self-center">
-          <img src={file} className="w-full" />
+        <div className="w-full self-center">
+          <img src={file} className="w-1/2 m-auto drop-shadow-lg" />
         </div>
       ) : (
         <form onSubmit={onUpload} className="w-full">
-          <input type="file" accept=".png, .jpeg, .jpg" name="image" required />
-          <button>Submit</button>
+          <input
+            className="bg-slate-100 p-2"
+            type="file"
+            accept=".png, .jpeg, .jpg"
+            name="image"
+            required
+          />
+          <button className="bg-lime-600 text-slate-200 border-slate-900 border p-2 rounded-md drop-shadow-md">
+            Submit
+          </button>
         </form>
       )}
     </>
