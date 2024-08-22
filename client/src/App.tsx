@@ -5,7 +5,7 @@ import { onSearch } from './data';
 export default function App() {
   return (
     <div className="w-full">
-      <div className="m-auto w-fit">
+      <div className="m-auto w-fit flex-col content-center text-center">
         <FileUploader />
         <button onClick={onSearch}>Search Gifs</button>
       </div>

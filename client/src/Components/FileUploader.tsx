@@ -10,8 +10,9 @@ export function FileUploader() {
       const ops = { method: 'POST', body: formData };
       const resp = await fetch('/api/openAI/upload', ops);
       if (!resp.ok) throw new Error('Upload failed');
-      const addedImg = await resp.json();
-      setFile(`http://localhost:8080/images/${addedImg}`);
+      const aiResponse = await resp.json();
+      setFile(`http://localhost:8080/images/${aiResponse.fileName}`);
+      console.log(aiResponse.aiResponse);
       eventTarget.reset();
     } catch (err) {
       console.error(err);
@@ -23,11 +24,11 @@ export function FileUploader() {
   return (
     <>
       {file ? (
-        <div className="w-full">
+        <div className="w-1/2 self-center">
           <img src={file} className="w-full" />
         </div>
       ) : (
-        <form onSubmit={onUpload}>
+        <form onSubmit={onUpload} className="w-full">
           <input type="file" accept=".png, .jpeg, .jpg" name="image" required />
           <button>Submit</button>
         </form>
