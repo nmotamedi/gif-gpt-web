@@ -1,6 +1,5 @@
 import './index.css';
-import { FileUploader } from './Components/FileUploader';
-import { onSearch } from './data';
+import { Content } from './Components/Content';
 
 export default function App() {
   return (
@@ -14,8 +13,7 @@ export default function App() {
         </div>
       </div>
       <div className="m-auto w-fit flex-col content-center text-center">
-        <FileUploader />
-        <button onClick={onSearch}>Search Gifs</button>
+        <Content />
       </div>
     </div>
   );

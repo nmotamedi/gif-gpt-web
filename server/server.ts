@@ -15,9 +15,10 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 
-app.get('/api/giphy/search', async (req, res, next) => {
+app.get('/api/giphy/search/:query', async (req, res, next) => {
   try {
-    const resp = await searchGif();
+    const query = req.params.query;
+    const resp = await searchGif(query);
     res.send(resp);
   } catch (err) {
     next(err);
