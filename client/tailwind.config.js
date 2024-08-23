@@ -3,7 +3,8 @@ export default {
   content: [
     './index.html',
     './src/App.tsx',
-    './src/Components/FileUploader.tsx',
+    './src/Components/Content.tsx',
+    './src/Components/GifDisplay.tsx',
   ],
   theme: {
     extend: {},
