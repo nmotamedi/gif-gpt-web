@@ -21,18 +21,23 @@ function GifCard(gif: GIFDataObject) {
 
   return (
     <div
-      className={`h-[200px] w-fit hover:grayscale m-1 ${
-        isCopied ? 'grayscale hover:cursor-default' : 'hover:cursor-pointer'
+      className={`h-[200px] bg-black w-fit m-1 relative text-center text-white ${
+        isCopied ? ' hover:cursor-default' : 'hover:cursor-pointer'
       }`}
       key={gif.url}>
       <video
         src={gif.images.fixed_height.mp4}
-        className="h-full hover:cursor-pointer hover:grayscale"
+        className={`h-full ${isCopied ? 'opacity-60' : 'hover:opacity-60 '}`}
         onClick={handleCopy}
         autoPlay
         loop
         muted
       />
+      {isCopied && (
+        <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 ">
+          Copied!
+        </h2>
+      )}
     </div>
   );
 }

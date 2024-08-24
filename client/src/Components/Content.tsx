@@ -23,6 +23,7 @@ export function Content() {
   async function onUpload(event: FormEvent<HTMLFormElement>) {
     try {
       event.preventDefault();
+      setIsLoading(true);
       const eventTarget = event.target as HTMLFormElement;
       const formData = new FormData(eventTarget);
       const ops = { method: 'POST', body: formData };
@@ -43,6 +44,7 @@ export function Content() {
       );
       const flattenedResponses = responses.flat();
       setGifs(flattenedResponses);
+      setIsLoading(false);
       eventTarget.reset();
     } catch (err) {
       console.error(err);
@@ -50,19 +52,36 @@ export function Content() {
   }
 
   const [file, setFile] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
   const [gifs, setGifs] = useState<GIFDataObject[]>();
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="h-[200px] relative bg-black text-white">
+          <img
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHloY3VnbG9wY29haGtoZnd3Mno2b2M5Zm44MnJ5NmMybzYzeHRjeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2H67VmB5UEBmU/giphy.webp"
+            className="h-full opacity-70"
+          />
+          <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 animate-pulse">
+            Loading...
+          </h2>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
       {file && gifs ? (
-        <>
+        <div className="flex flex-col h-[80svh]">
           <div className="w-full self-center mb-8">
-            <img src={file} className="w-1/2 m-auto drop-shadow-lg" />
+            <img src={file} className="h-64 m-auto drop-shadow-lg" />
           </div>
-          <div className="w-full flex flex-wrap justify-between">
+          <div className="w-full flex flex-grow flex-wrap justify-between px-8 overflow-auto shadow-inner">
             <GifDisplay gifsArr={gifs} />
           </div>
-        </>
+        </div>
       ) : (
         <form onSubmit={onUpload} className="w-full">
           <input

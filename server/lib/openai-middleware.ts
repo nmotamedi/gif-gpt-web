@@ -77,7 +77,7 @@ async function openAIContext(message: string): Promise<unknown> {
           content: [
             {
               type: 'text',
-              text: 'You are a highly skilled assistant tasked with analyzing a chat conversation and extracting key comedic elements. Your goal is to provide 5 1-2 word keywords that best capture any humor, playful banter, or lighthearted context within the recent messages. Consider wordplay, sarcasm, or any light, funny moments that could inspire relevant and entertaining GIFs. Focus on extracting the comedic aspects of the conversation that stand out.',
+              text: 'You are a highly skilled assistant tasked with analyzing a chat conversation and extracting key comedic elements. Your goal is to provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that best capture any humor, playful banter, or lighthearted context within the recent messages. Consider wordplay, sarcasm, or any light, funny moments that could inspire relevant and entertaining GIFs. Focus on extracting the comedic aspects of the conversation that stand out.',
             },
           ],
         },
@@ -90,7 +90,7 @@ async function openAIContext(message: string): Promise<unknown> {
             },
             {
               type: 'text',
-              text: 'Please provide 5 1 to 2 word keywords that represent any potential humor or lightheartedness in the conversation, formatted as follows: 1: [keyword] 2: [keyword] 3: [keyword] 4: [keyword] 5: [keyword]',
+              text: 'Please provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that represent any potential humor or lightheartedness in the conversation, formatted as follows: 1: [keyword] 2: [keyword] 3: [keyword] 4: [keyword] 5: [keyword]',
             },
           ],
         },
