@@ -6,8 +6,6 @@ export default {
     './src/Components/Content.tsx',
     './src/Components/GifDisplay.tsx',
   ],
-  theme: {
-    extend: {},
-  },
+  theme: {},
   plugins: [],
 };
