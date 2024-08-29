@@ -5,7 +5,15 @@ export default {
     './src/App.tsx',
     './src/Components/Content.tsx',
     './src/Components/GifDisplay.tsx',
+    './src/Components/Landing.tsx',
   ],
-  theme: {},
+  theme: {
+    extend: {
+      fontFamily: {
+        suse: ['SUSE', 'sans-serif'],
+        'new-amsterdam': ['New Amsterdam', 'sans-serif'],
+      },
+    },
+  },
   plugins: [],
 };

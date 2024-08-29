@@ -9,7 +9,9 @@ type AIResponse = {
   }[];
 };
 
-export async function openAIMiddleware(filepath: string): Promise<unknown> {
+export async function openAIImageMiddleware(
+  filepath: string
+): Promise<unknown> {
   function encodeImage(imagePath: string): string {
     const image = fs.readFileSync(imagePath);
     return Buffer.from(image).toString('base64');

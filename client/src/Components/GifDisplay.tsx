@@ -1,22 +1,32 @@
-import { GIFDataObject } from './Content';
 import '../index.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { GIFDataObject } from '../types';
+import { useCopied } from '../useCopied';
 
 export function GifDisplay({ gifsArr }: { gifsArr: GIFDataObject[] }) {
+  const { id, setId } = useCopied();
   if (!gifsArr || gifsArr.length === 0) {
     return <div>No GIFs available</div>;
   }
-  const gifsDisplay = gifsArr.map((gif) => GifCard(gif));
+  const gifsDisplay = gifsArr.map((gif) => GifCard(gif, id, setId));
 
   return <>{gifsDisplay}</>;
 }
 
-function GifCard(gif: GIFDataObject) {
-  const [isCopied, setIsCopied] = useState(false);
+function GifCard(
+  gif: GIFDataObject,
+  id: string,
+  setId: React.Dispatch<React.SetStateAction<string>>
+) {
+  const [isCopied, setIsCopied] = useState<boolean>();
+
+  useEffect(() => {
+    setIsCopied(id === gif.id);
+  }, [gif.id, id]);
 
   function handleCopy() {
     navigator.clipboard.writeText(gif.images.original.mp4);
-    setIsCopied(!isCopied);
+    setId(gif.id);
   }
 
   return (
