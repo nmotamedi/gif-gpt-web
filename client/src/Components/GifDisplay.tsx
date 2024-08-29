@@ -44,7 +44,7 @@ function GifCard(
         muted
       />
       {isCopied && (
-        <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 ">
+        <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           Copied!
         </h2>
       )}

@@ -18,7 +18,7 @@ export function Content() {
             src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHloY3VnbG9wY29haGtoZnd3Mno2b2M5Zm44MnJ5NmMybzYzeHRjeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2H67VmB5UEBmU/giphy.webp"
             className="h-full opacity-70"
           />
-          <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 animate-pulse">
+          <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse">
             Loading...
           </h2>
         </div>
