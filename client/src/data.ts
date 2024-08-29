@@ -28,7 +28,9 @@ export async function onUpload(
     const resp = await fetch('/api/openAI/upload', ops);
     if (!resp.ok) throw new Error('Upload failed');
     const aiResponse = await resp.json();
-    setFile(`http://localhost:8080/images/${aiResponse.fileName}`);
+    setFile(
+      `https://giphy-gpt-web-server.vercel.app/images/${aiResponse.fileName}`
+    );
     const contextResponseArray = aiResponse.aiResponse
       .split('\n')
       .map((keywords) => {
