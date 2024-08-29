@@ -7,7 +7,7 @@ import {
   uploadsMiddleware,
 } from './lib/index.js';
 import { searchGif } from './lib/giphy.js';
-import { openAIMiddleware } from './lib/openai-middleware.js';
+import { openAIImageMiddleware } from './lib/openai-middleware.js';
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.post(
     try {
       if (!req.file) throw new ClientError(400, 'no file field in request');
       const filepath = req.file.path;
-      const aiResponse = await openAIMiddleware(filepath);
+      const aiResponse = await openAIImageMiddleware(filepath);
       res.json({ aiResponse, fileName: req.file.filename });
     } catch (err) {
       next(err);
