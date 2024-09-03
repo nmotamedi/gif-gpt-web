@@ -40,7 +40,7 @@ export function Content() {
         <div className="w-full self-center mb-8">
           <img src={file} className="h-64 m-auto drop-shadow-lg" />
         </div>
-        <div className="w-full flex flex-grow flex-wrap justify-between px-8 overflow-auto shadow-inner">
+        <div className="w-full flex md:flex-grow md:flex-wrap md:justify-between px-8 overflow-auto shadow-inner flex-col md:flex-row items-center">
           <GifDisplay gifsArr={gifs} />
         </div>
       </div>
@@ -53,26 +53,26 @@ export function Content() {
         onSubmit={(event) =>
           onUpload(event, setFile, setIsLoading, setGifs, setError)
         }
-        className="bg-slate-100 rounded-lg border border-slate-200 pt-4 w-7/12 m-auto">
-        <h2 className="w-10/12 m-auto text-justify my-5 font-suse text-xl">
+        className="bg-slate-100 rounded-lg border border-slate-200 pt-4 w-10/12 md:w-7/12 m-auto">
+        <h2 className="w-10/12 m-auto text-justify my-5 font-suse text-base md:text-xl">
           It’s as easy as 1-2-3! Simply take a screenshot of your conversation,
           upload it, and let us do the rest. We’ll analyze your chat and provide
           you with the best GIFs that match the mood and context of your
           conversation.
         </h2>
-        <h2 className="w-10/12 m-auto text-justify my-5 font-suse font-extralight text-lg">
+        <h2 className="w-10/12 m-auto text-justify my-5 font-suse font-extralight text-base md:text-lg">
           Ready to make your chats more fun? Start by uploading your screenshot
           now!
         </h2>
         <div className="bg-slate-300 p-2 flex flex-col justify-center items-center">
           <input
             type="file"
-            className="bg-slate-600 my-3 border border-black rounded-md p-2 font-suse hover:cursor-pointer text-white"
+            className="bg-slate-600 my-3 border border-black rounded-md p-2 font-suse hover:cursor-pointer text-white w-10/12"
             accept=".png, .jpeg, .jpg"
             name="image"
             required
           />
-          <button className="bg-lime-600 text-slate-200 border-slate-900 border p-2 my-2 rounded-md drop-shadow-md font-new-amsterdam text-2xl hover:bg-lime-700 hover:drop-shadow-xl ">
+          <button className="bg-lime-600 text-slate-200 border-slate-900 border p-2 my-2 rounded-md drop-shadow-md font-new-amsterdam text-lg md:text-2xl hover:bg-lime-700 hover:drop-shadow-xl ">
             SEARCH
           </button>
         </div>
