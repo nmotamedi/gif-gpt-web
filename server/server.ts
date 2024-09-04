@@ -8,6 +8,7 @@ import {
 } from './lib/index.js';
 import { searchGif } from './lib/giphy.js';
 import { openAIImageMiddleware } from './lib/openai-middleware.js';
+import { deleteFile } from './lib/deleteFile.js';
 
 const app = express();
 
@@ -45,6 +46,16 @@ app.post(
     }
   }
 );
+
+app.delete('/api/image/:path', async (req, res, next) => {
+  try {
+    const path = req.params.path;
+    await deleteFile(path);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.use(errorMiddleware);
 

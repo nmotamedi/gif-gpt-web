@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../index.css';
 import { GifDisplay } from './GifDisplay';
 import { onUpload } from '../data';
@@ -9,6 +9,23 @@ export function Content() {
   const [isLoading, setIsLoading] = useState(false);
   const [gifs, setGifs] = useState<GIFDataObject[]>();
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const handleUnload = async () => {
+      try {
+        await fetch(`/api/image/${file}`, {
+          method: 'DELETE',
+          keepalive: true,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [file]);
 
   if (isLoading) {
     return (
