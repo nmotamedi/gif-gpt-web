@@ -4,6 +4,7 @@ export type GIFDataObject = {
   images: {
     fixed_height: {
       mp4: string;
+      webp: string;
     };
     original: {
       mp4: string;

@@ -19,9 +19,11 @@ function GifCard(
   setId: React.Dispatch<React.SetStateAction<string>>
 ) {
   const [isCopied, setIsCopied] = useState<boolean>();
+  const [displaySize, setDisplaySize] = useState<number>(0);
 
   useEffect(() => {
     setIsCopied(id === gif.id);
+    setDisplaySize(document.documentElement.clientWidth);
   }, [gif.id, id]);
 
   function handleCopy() {
@@ -49,14 +51,22 @@ function GifCard(
         isCopied ? ' hover:cursor-default' : 'hover:cursor-pointer'
       }`}
       key={gif.url}>
-      <video
-        src={gif.images.fixed_height.mp4}
-        className={`h-full ${isCopied ? 'opacity-60' : 'hover:opacity-60 '}`}
-        onClick={handleCopy}
-        autoPlay
-        loop
-        muted
-      />
+      {displaySize > 768 ? (
+        <video
+          src={gif.images.fixed_height.mp4}
+          className={`h-full ${isCopied ? 'opacity-60' : 'hover:opacity-60 '}`}
+          onClick={handleCopy}
+          autoPlay
+          loop
+          muted
+        />
+      ) : (
+        <img
+          src={gif.images.fixed_height.webp}
+          className={`h-full ${isCopied ? 'opacity-60' : 'hover:opacity-60 '}`}
+          onClick={handleCopy}
+        />
+      )}
       {isCopied && (
         <h2 className="text-2xl text-stroke-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           Copied!
