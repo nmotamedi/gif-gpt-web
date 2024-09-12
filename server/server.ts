@@ -20,7 +20,7 @@ app.use(express.static(reactStaticDir));
 
 // Static directory for file uploads server/public/
 app.use(express.static('public'));
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 
 app.get('/api/giphy/search/:query', async (req, res, next) => {
   try {

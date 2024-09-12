@@ -9,6 +9,23 @@ export function Content() {
   const [isLoading, setIsLoading] = useState(false);
   const [gifs, setGifs] = useState<GIFDataObject[]>();
   const [error, setError] = useState(false);
+  const [fileUpload, setFileUpload] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>();
+  const fileSizeLimit = 2 * 1024 * 1024; //2 MB
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+
+    if (selectedFile) {
+      if (selectedFile.size > fileSizeLimit) {
+        setUploadError('File size exceeds 2MB');
+        setFileUpload(null); // Clear the file
+      } else {
+        setFileUpload(selectedFile); // Set the selected file
+        setUploadError(null);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleUnload = async () => {
@@ -67,9 +84,9 @@ export function Content() {
   return (
     <>
       <form
-        onSubmit={(event) =>
-          onUpload(event, setFile, setIsLoading, setGifs, setError)
-        }
+        onSubmit={(event) => {
+          onUpload(event, setFile, setIsLoading, setGifs, setError);
+        }}
         className="bg-slate-100 rounded-lg border border-slate-200 pt-4 w-10/12 md:w-7/12 m-auto">
         <h2 className="w-10/12 m-auto text-justify my-5 font-suse text-base md:text-xl">
           It’s as easy as 1-2-3! Simply take a screenshot of your conversation,
@@ -87,9 +104,13 @@ export function Content() {
             className="bg-slate-600 my-3 border border-black rounded-md p-2 font-suse hover:cursor-pointer text-white w-10/12"
             accept=".png, .jpeg, .jpg"
             name="image"
+            onChange={handleFileChange}
             required
           />
-          <button className="bg-lime-600 text-slate-200 border-slate-900 border p-2 my-2 rounded-md drop-shadow-md font-new-amsterdam text-lg md:text-2xl hover:bg-lime-700 hover:drop-shadow-xl ">
+          {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
+          <button
+            disabled={!!uploadError || !fileUpload}
+            className="bg-lime-600 text-slate-200 border-slate-900 border p-2 my-2 rounded-md drop-shadow-md font-new-amsterdam text-lg md:text-2xl hover:bg-lime-700 hover:drop-shadow-xl ">
             SEARCH
           </button>
         </div>
