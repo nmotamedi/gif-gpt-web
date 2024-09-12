@@ -13,6 +13,12 @@ export function Content() {
   const [uploadError, setUploadError] = useState<string | null>();
   const fileSizeLimit = 2 * 1024 * 1024; //2 MB
 
+  useEffect(() => {
+    // Clear file input state when the page reloads
+    setFileUpload(null);
+    setUploadError(null);
+  }, []);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
 
