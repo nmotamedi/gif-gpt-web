@@ -34,7 +34,7 @@ export async function openAIImageMiddleware(
         content: [
           {
             type: 'text',
-            text: `Transcribe this screenshot of a conversation, with messages from others on the left side being tracked by individual users, and messages from the current user on the right side being listed as "me". If any pictures are being sent in the chatlog, please describe the images in detail as they appear in the conversation within the transcription`,
+            text: `The input will either be a photo or a screenshot of a text conversation. If it is a photo, describe the photo in detail. If it is a screenshot, transcribe this screenshot of a conversation, with messages from others on the left side being tracked by individual users, and messages from the current user on the right side being listed as "me". If any pictures are being sent in the chatlog, please describe the images in detail as they appear in the conversation within the transcription`,
           },
           {
             type: 'image_url',
@@ -60,7 +60,7 @@ export async function openAIImageMiddleware(
 
   const text: AIResponse = await resp.json();
 
-  const context = openAIContext(text.choices[0].message.content);
+  const context = await openAIContext(text.choices[0].message.content);
 
   return context;
 }
@@ -79,7 +79,7 @@ async function openAIContext(message: string): Promise<unknown> {
           content: [
             {
               type: 'text',
-              text: 'You are a highly skilled assistant tasked with analyzing a chat conversation and extracting key comedic elements. Your goal is to provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that best capture any humor, playful banter, or lighthearted context within the recent messages. Consider wordplay, sarcasm, or any light, funny moments that could inspire relevant and entertaining GIFs. Focus on extracting the comedic aspects of the conversation that stand out.',
+              text: 'You are a highly skilled assistant tasked with analyzing a photo description or a chat conversation and extracting key elements. Your goal is to provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that best capture any key descriptors, humor, playful banter, or lighthearted context within the recent messages. Consider wordplay, sarcasm, or any light, funny moments that could inspire relevant and entertaining GIFs. Focus on extracting the comedic aspects of the conversation that stand out.',
             },
           ],
         },
@@ -92,7 +92,7 @@ async function openAIContext(message: string): Promise<unknown> {
             },
             {
               type: 'text',
-              text: 'Please provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that represent any potential humor or lightheartedness in the conversation, formatted as follows: 1: [keyword] 2: [keyword] 3: [keyword] 4: [keyword] 5: [keyword]',
+              text: 'Please provide 5 targetted 1-word (can be 2 word if absolutely needed) keywords that represent any key descriptors, potential humor or lightheartedness in the conversation or photo, formatted as follows: 1: [keyword] 2: [keyword] 3: [keyword] 4: [keyword] 5: [keyword]',
             },
           ],
         },
