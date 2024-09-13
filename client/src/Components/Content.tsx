@@ -13,23 +13,6 @@ export function Content() {
   const [uploadError, setUploadError] = useState<string | null>();
   const fileSizeLimit = 2 * 1024 * 1024; //2 MB
 
-  // useEffect(() => {
-  //   // Handle file input clearing before page reload
-  //   const handleBeforeUnload = (event) => {
-  //     // Clear the file input before page reload
-  //     setFileUpload(null);
-  //     event.preventDefault(); // For modern browsers, this is enough to trigger the event
-  //   };
-
-  //   // Add event listener
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
-
-  //   // Cleanup event listener on component unmount
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, []);
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
 
@@ -43,23 +26,6 @@ export function Content() {
       }
     }
   };
-
-  // useEffect(() => {
-  //   const handleUnload = async () => {
-  //     try {
-  //       await fetch(`/api/image/${file}`, {
-  //         method: 'DELETE',
-  //         keepalive: true,
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   window.addEventListener('beforeunload', handleUnload);
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleUnload);
-  //   };
-  // }, [file]);
 
   if (isLoading) {
     return (
