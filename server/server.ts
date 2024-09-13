@@ -8,7 +8,45 @@ import {
 } from './lib/index.js';
 import { searchGif } from './lib/giphy.js';
 import { openAIImageMiddleware } from './lib/openai-middleware.js';
-import { deleteFile } from './lib/deleteFile.js';
+import cron from 'node-cron';
+import fs from 'fs';
+import path from 'path';
+
+cron.schedule('0 0 * * *', () => {
+  const directory = path.join(__dirname, 'public/images');
+
+  fs.readdir(directory, (err, files) => {
+    if (err) {
+      console.error('Error reading directory:', err);
+      return;
+    }
+
+    for (const file of files) {
+      const filePath = path.join(directory, file);
+
+      fs.stat(filePath, (err, stats) => {
+        if (err) {
+          console.error(`Error reading file stats for ${file}:`, err);
+          return;
+        }
+
+        const now = Date.now();
+        const fileAge = (now - new Date(stats.mtime).getTime()) / (1000 * 60);
+
+        if (fileAge > 60) {
+          // 1 hour
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error(`Failed to delete file: ${file}`, err);
+            } else {
+              console.log(`File deleted: ${file}`);
+            }
+          });
+        }
+      });
+    }
+  });
+});
 
 const app = express();
 
@@ -46,16 +84,6 @@ app.post(
     }
   }
 );
-
-app.delete('/api/image/:path', async (req, res, next) => {
-  try {
-    const path = req.params.path;
-    await deleteFile(path);
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
-  }
-});
 
 app.use(errorMiddleware);
 
