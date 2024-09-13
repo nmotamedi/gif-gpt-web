@@ -1,0 +1,14 @@
+{
+  "nodeRules": [
+    {
+      "selector": "meta[property]",
+      "rules": {
+        "invalid-attr": {
+          "options": {
+            "allowAttrs": ["property", "content"]
+          }
+        }
+      }
+    }
+  ]
+}
