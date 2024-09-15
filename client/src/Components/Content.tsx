@@ -72,10 +72,10 @@ export function Content() {
         }}
         className="bg-slate-100 rounded-lg border border-slate-200 pt-4 w-10/12 md:w-7/12 m-auto">
         <h2 className="w-10/12 m-auto text-justify my-5 font-suse text-base md:text-xl">
-          It’s as easy as 1-2-3! Simply take a screenshot of your conversation,
-          upload it, and let us do the rest. We’ll analyze your chat and provide
-          you with the best GIFs that match the mood and context of your
-          conversation.
+          It’s as easy as 1-2-3! Simply take a screenshot of your conversation
+          or a photo you were sent, upload it, and let us do the rest. We’ll
+          analyze it and provide you with the best GIFs that match the mood and
+          context of your conversation.
         </h2>
         <h2 className="w-10/12 m-auto text-justify my-5 font-suse font-extralight text-base md:text-lg">
           Ready to make your chats more fun? Start by uploading your screenshot
